@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fix Pro - Enterprise Security Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2C5F9E;
+            --primary-dark: #1E4570;
+            --secondary: #34A853;
+            --accent: #FBBC04;
+            --text-dark: #1a1a1a;
+            --text-light: #4a4a4a;
+            --bg-light: #F8F9FA;
+            --bg-white: #FFFFFF;
+            --border: #E1E8ED;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-white);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Architecture Diagram */
+        .architecture-box {
+            background: var(--bg-light);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .architecture-layer {
+            background: white;
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .architecture-layer:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .architecture-layer h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .layer-number {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .feature-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #1E1E1E;
+            color: #D4D4D4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .code-comment {
+            color: #6A9955;
+        }
+
+        .code-keyword {
+            color: #569CD6;
+        }
+
+        .code-string {
+            color: #CE9178;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        .check {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .cross {
+            color: #EA4335;
+            font-weight: 700;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--primary);
+        }
+
+        .timeline-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 12px;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Database Diagram */
+        .db-diagram {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .db-instance {
+            background: var(--bg-light);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .db-instance-title {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .db-list {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .db-list li {
+            padding: 0.5rem 0;
+            border-left: 3px solid var(--secondary);
+            padding-left: 1rem;
+            margin-bottom: 0.5rem;
+            background: white;
+            border-radius: 4px;
+        }
+
+        .highlight-box {
+            background: #FFF9E6;
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box strong {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">🔒 AI Fix Pro Security</div>
+            <ul class="nav-links">
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#compliance">Compliance</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Enterprise-Grade Security Architecture</h1>
+        <p>Multi-tenant database isolation with defense-in-depth security on Google Cloud Platform</p>
+        <div class="badge-container">
+            <span class="badge">✓ GDPR Compliant</span>
+            <span class="badge">✓ ISO 27001 Controls</span>
+            <span class="badge">✓ SOC 2 (In Progress)</span>
+            <span class="badge">✓ 24-Hour Data Deletion</span>
+        </div>
+    </section>
+
+    <!-- What We Do -->
+    <div class="container">
+        <section class="section animate-in">
+            <div class="section-header">
+                <h2>What We Actually Do</h2>
+                <p>AI Fix Pro is a garage automation platform, not an AI data company. We help automotive service centers manage customer communications—AI is simply the technical tool that powers our natural language processing.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Security Layers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24h</div>
+                    <div class="stat-label">Data Deletion</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Data Breaches</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Encrypted</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Multi-Tenant Architecture -->
+        <section class="section animate-in" id="architecture">
+            <div class="section-header">
+                <h2>True Database Isolation</h2>
+                <p>Each customer gets their own PostgreSQL database—not filtered tables, not row-level security. Complete architectural isolation.</p>
+            </div>
+
+            <div class="db-diagram">
+                <div class="db-instance">
+                    <div class="db-instance-title">📊 Google Cloud SQL Instance (europe-west2)</div>
+                    <ul class="db-list">
+                        <li><strong>tenant_rrlondon_db</strong> → RR London (Complete isolated database)</li>
+                        <li><strong>tenant_smartwheels_db</strong> → Smartwheels (Complete isolated database)</li>
+                        <li><strong>tenant_premier_db</strong> → Premier Auto (Complete isolated database)</li>
+                        <li><strong>shared_lookups_db</strong> → Work statuses, service codes (Shared only)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Critical Point:</strong> Cross-tenant queries are <strong>architecturally impossible</strong>. Even if our application had a security vulnerability, attackers cannot access data from other tenants because it exists in a completely separate database.
+            </div>
+
+            <h3 style="margin-top: 3rem; margin-bottom: 1.5rem;">Comparison: Database Isolation Approaches</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Approach</th>
+                        <th>Isolation Level</th>
+                        <th>Cross-Tenant Risk</th>
+                        <th>SQL Injection Risk</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tenant ID Filtering</td>
+                        <td>Application-level</td>
+                        <td><span class="cross">⚠️ High</span> (if filter forgotten)</td>
+                        <td><span class="cross">⚠️ Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td>Row Level Security (RLS)</td>
+                        <td>Database policy</td>
+                        <td><span class="cross">⚠️ Medium</span> (if misconfigured)</td>
+                        <td><span class="check">✓ Low</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Separate Databases (Our Approach)</strong></td>
+                        <td><strong>Database-level</strong></td>
+                        <td><span class="check">✓ Very Low</span> (architectural)</td>
+                        <td><span class="check">✓ Very Low</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Security Stack -->
+        <section class="section animate-in" id="security">
+            <div class="section-header">
+                <h2>8-Layer Security Stack</h2>
+                <p>Defense-in-depth architecture ensures multiple independent protections</p>
+            </div>
+
+            <div class="architecture-box">
+                <div class="architecture-layer">
+                    <h3><span class="layer-number">8</span> Output Validation</h3>
+                    <p>Filters VINs, API keys, and sensitive data patterns before response delivery. Regex-based blocking prevents data leakage even if AI misbehaves.</p>
+                </div>
+
+                <div class="architecture-layer">
+                    <h3><span class="layer-number">7</span> AI Processing (Third-Party AI Service)</h3>
+                    <p>Sandboxed AI engine with no network access, no database credentials, no direct API access. Receives only sanitized prompts and pre-retrieved data. Enterprise agreement prohibits training on customer data.</p>
+                </div>
+
+                <div class="architecture-layer">
+                    <h3><span class="layer-number">6</span> Application Logic (Cloud Run)</h3>
+                    <p>Container isolation with input sanitization, rate limiting, and automatic scaling. Each request runs in isolated environment.</p>
+                </div>
+
+                <div class="architecture-layer">
+                    <h3><span class="layer-number">5</span> ORM Security (SQLAlchemy)</h3>
+                    <p>Automatic parameterized queries prevent SQL injection. Type validation rejects malformed input before reaching database.</p>
+                </div>
+
+                <div class="architecture-layer">
+                    <h3><span class="layer-number">4</span> Database Access (Cloud SQL Proxy)</h3>
+                    <p>IAM-based authentication with automatic credential rotation. All connections encrypted via TLS 1.3.</p>
+                </div>
+
+                <div class="architecture-layer">
+                    <h3><span class="layer-number">3</span> Database Server (Cloud SQL)</h3>
+                    <p>Private IP only, AES-256 encryption at rest, automated backups. 400-day audit log retention.</p>
+                </div>
+
+                <div class="architecture-layer">
+                    <h3><span class="layer-number">2</span> Network Security (VPC + Firewall)</h3>
+                    <p>Virtual Private Cloud with deny-all inbound rules. Database accessible only via authorized Cloud Run services.</p>
+                </div>
+
+                <div class="architecture-layer">
+                    <h3><span class="layer-number">1</span> DDoS Protection (Cloud Armor)</h3>
+                    <p>Edge protection with automatic DDoS mitigation, rate limiting, and geographic filtering.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>Result:</strong> An attacker would need to bypass 8 consecutive security layers to access your API data. Each layer has independent controls.
+            </div>
+        </section>
+
+        <!-- SQLAlchemy Security -->
+        <section class="section animate-in">
+            <div class="section-header">
+                <h2>SQLAlchemy ORM: Automatic SQL Injection Protection</h2>
+                <p>All database queries use parameterization—user input is always treated as data, never as executable code</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Parameterized Queries</h3>
+                    <p>All queries automatically use parameters. SQL injection is impossible because user input never becomes SQL code.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3>Type Validation</h3>
+                    <p>Data types enforced at ORM level. Invalid input (wrong type, format, length) rejected before reaching database.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚫</div>
+                    <h3>No String Concatenation</h3>
+                    <p>Zero raw SQL strings. All queries built through ORM methods that automatically handle escaping.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Example: How It Protects Against SQL Injection</h3>
+            <div class="code-block">
+<span class="code-comment"># User provides: registration = "AB12 CDE"</span>
+vehicle = db.query(Vehicle).filter(Vehicle.registration == user_input).first()
+
+<span class="code-comment"># SQLAlchemy generates SAFE query:</span>
+<span class="code-comment"># SELECT * FROM vehicles WHERE registration = $1</span>
+<span class="code-comment"># Parameters: ['AB12 CDE'] ← Treated as data, not code</span>
+
+<span class="code-comment"># Even with malicious input: "AB12'; DROP TABLE vehicles; --"</span>
+<span class="code-comment"># SQLAlchemy safely escapes it as a string search</span>
+<span class="code-comment"># SELECT * FROM vehicles WHERE registration = $1</span>
+<span class="code-comment"># Parameters: ["AB12'; DROP TABLE vehicles; --"] ← Harmless</span>
+            </div>
+        </section>
+
+        <!-- Data Lifecycle -->
+        <section class="section animate-in">
+            <div class="section-header">
+                <h2>24-Hour Data Lifecycle</h2>
+                <p>Automated deletion ensures compliance with data minimization principles</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Hour 0: Data Retrieved</h4>
+                    <p>Customer calls asking about MOT. Backend queries your API and stores result in tenant's isolated database with timestamp.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Hours 0-24: Cache Available</h4>
+                    <p>If same customer calls again within 24 hours, we use cached data (reduces API calls to your service).</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Hour 24: Automatic Deletion</h4>
+                    <p>Cloud Function runs at 2:00 AM UTC daily. Deletes all records with retrieved_at > 24 hours ago.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Audit Trail: Proof of Deletion</h4>
+                    <p>Cloud Logging captures deletion events with timestamps, record counts, and database names. 400-day retention for compliance verification.</p>
+                </div>
+            </div>
+
+            <div class="code-block">
+<span class="code-comment"># Cloud Function: Runs daily at 2:00 AM UTC</span>
+<span class="code-keyword">def</span> purge_expired_data():
+    <span class="code-keyword">for</span> tenant_db <span class="code-keyword">in</span> all_tenant_databases:
+        <span class="code-comment"># Delete vehicle data older than 24 hours</span>
+        result = tenant_db.execute(<span class="code-string">"""
+            DELETE FROM vehicle_cache 
+            WHERE retrieved_at < NOW() - INTERVAL '24 hours'
+            RETURNING id
+        """</span>)
+        
+        <span class="code-comment"># Log deletion for audit trail</span>
+        log_to_cloud_logging({
+            <span class="code-string">'database'</span>: tenant_db.name,
+            <span class="code-string">'deleted_count'</span>: result.rowcount,
+            <span class="code-string">'timestamp'</span>: datetime.utcnow()
+        })
+            </div>
+        </section>
+
+        <!-- GCP Security Features -->
+        <section class="section animate-in">
+            <div class="section-header">
+                <h2>Google Cloud Platform Security</h2>
+                <p>Enterprise-grade infrastructure trusted by billions of users</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Encryption Everywhere</h3>
+                    <p><strong>At Rest:</strong> AES-256 encryption for all data, backups, and logs.<br><strong>In Transit:</strong> TLS 1.3 mandatory (older versions disabled).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔑</div>
+                    <h3>IAM Least Privilege</h3>
+                    <p>Service accounts can only read/write data. Cannot delete databases, create users, or modify infrastructure.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Private Network</h3>
+                    <p>Database has no public IP. Accessible only via Cloud SQL Proxy from authorized Cloud Run services.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Audit Logging</h3>
+                    <p>All database queries logged. 400-day retention. Real-time monitoring alerts for suspicious patterns.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Automatic Backups</h3>
+                    <p>Daily encrypted backups stored in separate region. Point-in-time recovery up to 7 days.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>DDoS Protection</h3>
+                    <p>Cloud Armor blocks malicious traffic at edge. Rate limiting prevents abuse.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Compliance -->
+        <section class="section animate-in" id="compliance">
+            <div class="section-header">
+                <h2>Compliance & Certifications</h2>
+                <p>Meeting regulatory requirements through technical and organizational measures</p>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Standard</th>
+                        <th>Status</th>
+                        <th>Key Controls</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>GDPR</strong><br>General Data Protection Regulation</td>
+                        <td><span class="check">✓ Compliant</span></td>
+                        <td>Data minimization, 24h storage limitation, encryption, access control, audit trails</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UK DPA 2018</strong><br>Data Protection Act</td>
+                        <td><span class="check">✓ Compliant</span></td>
+                        <td>Lawful basis (legitimate interests), data subject rights, protection by design</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ISO 27001</strong><br>Information Security</td>
+                        <td><span class="cross">⏳ In Progress</span></td>
+                        <td>Access control (A.9), Cryptography (A.10), Operations security (A.12)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SOC 2 Type II</strong><br>Service Organization Controls</td>
+                        <td><span class="cross">⏳ In Progress</span></td>
+                        <td>Security, availability, confidentiality (Expected Q2 2026)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- What We Don't Do -->
+        <section class="section animate-in">
+            <div class="section-header">
+                <h2>What We DON'T Do</h2>
+                <p>Clear boundaries on data usage and business model</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>❌ No Dataset Building</h3>
+                    <p>We don't create derivative databases or aggregate vehicle data across customers. Data is used transiently and deleted within 24 hours.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>❌ No AI Training</h3>
+                    <p>Your vehicle data never enters any machine learning training pipeline. We use pre-trained models with zero data retention.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>❌ No Data Sales</h3>
+                    <p>We sell automation subscriptions (£99-299/month per garage), not data. Revenue comes from services, not information resale.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>❌ No Cross-Tenant Analysis</h3>
+                    <p>Database isolation makes aggregation across tenants architecturally impossible. Each customer's data is completely separate.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>❌ No Long-Term Storage</h3>
+                    <p>No "just in case" data hoarding. Automated deletion enforces 24-hour maximum retention with audit trails.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>❌ No Third-Party Sharing</h3>
+                    <p>Vehicle data never leaves our GCP infrastructure. No sharing with advertisers, data brokers, or analytics services.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>Want to Verify Our Security?</h2>
+            <p>We're happy to provide technical deep-dives, audit access, and security documentation</p>
+            <a href="#contact" class="btn">Schedule Security Review</a>
+            <a href="#" class="btn btn-secondary" onclick="alert('Technical architecture documentation available upon NDA execution. Contact: admin@aifixpro.co.uk or +44 7887 204486')">Download Technical Docs</a>
+        </section>
+
+        <!-- Contact -->
+        <section class="section animate-in" id="contact">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Questions about our security architecture? Let's talk.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>📧 Security Inquiries</h3>
+                    <p><strong>Email:</strong> <a href="mailto:admin@aifixpro.co.uk" style="color: var(--primary); text-decoration: none;">admin@aifixpro.co.uk</a><br>
+                    <strong>Phone:</strong> <a href="tel:+447887204486" style="color: var(--primary); text-decoration: none;">+44 7887 204486</a><br>
+                    <strong>Response time:</strong> 24 hours (4 hours for urgent)</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🔧 Technical Reviews</h3>
+                    <p><strong>CTO:</strong> Available for architecture discussions<br>
+                    <strong>Topics:</strong> Database design, GCP setup, compliance</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>🚨 Incident Reporting</h3>
+                    <p><strong>24/7 Hotline:</strong> <a href="tel:+447887204486" style="color: var(--primary); text-decoration: none;">+44 7887 204486</a><br>
+                    <strong>Email:</strong> <a href="mailto:admin@aifixpro.co.uk" style="color: var(--primary); text-decoration: none;">admin@aifixpro.co.uk</a><br>
+                    <strong>PGP:</strong> Encrypted communications supported</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo" style="font-size: 1.75rem; margin-bottom: 1rem;">🔒 AI Fix Pro</div>
+            <p style="opacity: 0.8; margin-bottom: 2rem;">Enterprise-grade security for garage automation</p>
+            
+            <div class="footer-links">
+                <a href="#architecture">Architecture</a>
+                <a href="#security">Security</a>
+                <a href="#compliance">Compliance</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                <p style="opacity: 0.6; font-size: 0.875rem;">
+                    AI Fix Pro Ltd. | Registered in England & Wales<br>
+                    Data Protection Officer: Available upon request<br>
+                    Last updated: December 31, 2025 | Version 2.0
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        //
