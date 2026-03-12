@@ -1,1031 +1,1812 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Fix Pro - Enterprise Security Architecture</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #2C5F9E;
-            --primary-dark: #1E4570;
-            --secondary: #34A853;
-            --accent: #FBBC04;
-            --text-dark: #1a1a1a;
-            --text-light: #4a4a4a;
-            --bg-light: #F8F9FA;
-            --bg-white: #FFFFFF;
-            --border: #E1E8ED;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: var(--bg-white);
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--bg-white);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            box-shadow: 0 2px 10px var(--shadow);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-light);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 70px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            opacity: 0.95;
-        }
-
-        .badge-container {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .badge {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.75rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        /* Section */
-        .section {
-            margin-bottom: 4rem;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            font-size: 1.125rem;
-            color: var(--text-light);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Architecture Diagram */
-        .architecture-box {
-            background: var(--bg-light);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-
-        .architecture-layer {
-            background: white;
-            border-left: 4px solid var(--primary);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .architecture-layer:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-
-        .architecture-layer h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .layer-number {
-            background: var(--primary);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.875rem;
-        }
-
-        /* Feature Grid */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-
-        .feature-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px var(--shadow);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.75rem;
-        }
-
-        .feature-card h3 {
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
-        }
-
-        .feature-card p {
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-
-        /* Code Block */
-        .code-block {
-            background: #1E1E1E;
-            color: #D4D4D4;
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 1.5rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-
-        .code-comment {
-            color: #6A9955;
-        }
-
-        .code-keyword {
-            color: #569CD6;
-        }
-
-        .code-string {
-            color: #CE9178;
-        }
-
-        /* Comparison Table */
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px var(--shadow);
-        }
-
-        .comparison-table th {
-            background: var(--primary);
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .comparison-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .comparison-table tr:hover {
-            background: var(--bg-light);
-        }
-
-        .check {
-            color: var(--secondary);
-            font-weight: 700;
-        }
-
-        .cross {
-            color: #EA4335;
-            font-weight: 700;
-        }
-
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 3rem;
-            margin: 2rem 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--primary);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2rem;
-            padding-left: 2rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -3rem;
-            top: 0;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--primary);
-            border: 4px solid white;
-            box-shadow: 0 0 0 4px var(--primary);
-        }
-
-        .timeline-item h4 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 2rem;
-            background: var(--bg-light);
-            border-radius: 12px;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-            border-radius: 12px;
-            margin: 4rem 0;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-section p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: white;
-            color: var(--primary);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-            margin-left: 1rem;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: var(--primary);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--text-dark);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .section-header h2 {
-                font-size: 1.75rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .btn-secondary {
-                margin-left: 0;
-                margin-top: 1rem;
-            }
-        }
-
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-in {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        /* Database Diagram */
-        .db-diagram {
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-
-        .db-instance {
-            background: var(--bg-light);
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .db-instance-title {
-            color: var(--primary);
-            font-weight: 700;
-            margin-bottom: 1rem;
-            font-size: 1.125rem;
-        }
-
-        .db-list {
-            list-style: none;
-            padding-left: 1.5rem;
-        }
-
-        .db-list li {
-            padding: 0.5rem 0;
-            border-left: 3px solid var(--secondary);
-            padding-left: 1rem;
-            margin-bottom: 0.5rem;
-            background: white;
-            border-radius: 4px;
-        }
-
-        .highlight-box {
-            background: #FFF9E6;
-            border-left: 4px solid var(--accent);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border-radius: 8px;
-        }
-
-        .highlight-box strong {
-            color: var(--accent);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GCP Security Architecture · Enterprise Data Governance</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+  --bg: #030712;
+  --bg2: #0a0f1e;
+  --panel: #0d1424;
+  --border: rgba(56,189,248,0.15);
+  --blue: #38bdf8;
+  --blue2: #0ea5e9;
+  --green: #34d399;
+  --amber: #fbbf24;
+  --red: #f87171;
+  --purple: #a78bfa;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --card: rgba(13,20,36,0.8);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* === ANIMATED BACKGROUND === */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+  animation: orbFloat 20s ease-in-out infinite;
+}
+
+.orb1 { width:500px; height:500px; background:#0ea5e9; top:-100px; left:-100px; animation-delay:0s; }
+.orb2 { width:400px; height:400px; background:#a78bfa; bottom:-50px; right:-50px; animation-delay:-7s; }
+.orb3 { width:300px; height:300px; background:#34d399; top:50%; left:50%; animation-delay:-14s; }
+
+@keyframes orbFloat {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(30px,-20px) scale(1.05); }
+  66% { transform: translate(-20px,30px) scale(0.95); }
+}
+
+/* === SCANNING LINE === */
+.scanline {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  animation: scan 8s linear infinite;
+  z-index: 1;
+  opacity: 0.4;
+}
+@keyframes scan { 0% { top: 0; } 100% { top: 100vh; } }
+
+/* === NAV === */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(3,7,18,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  color: var(--blue);
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-logo::before {
+  content: '';
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); box-shadow: 0 0 0 0 rgba(52,211,153,0.4); }
+  50% { opacity:0.8; transform:scale(1.2); box-shadow: 0 0 0 6px rgba(52,211,153,0); }
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+.nav-links a:hover { color: var(--blue); background: rgba(56,189,248,0.08); }
+
+.nav-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--green);
+  border: 1px solid rgba(52,211,153,0.3);
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
+}
+
+/* === HERO === */
+.hero {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+}
+
+.hero-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.hero-tag::before, .hero-tag::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: var(--blue);
+  opacity: 0.5;
+}
+
+.hero h1 {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #fff 0%, var(--blue) 50%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  line-height: 1.8;
+}
+
+/* === THREAT COUNTER === */
+.threat-counter {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  width: 100%;
+}
+
+.counter-cell {
+  background: var(--panel);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.counter-num {
+  font-family: 'Orbitron', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--blue);
+  display: block;
+}
+
+.counter-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+  font-family: 'Space Mono', monospace;
+}
+
+/* === SECTION === */
+.section {
+  position: relative;
+  z-index: 2;
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.section-desc {
+  color: var(--muted);
+  max-width: 600px;
+  margin-bottom: 3rem;
+  font-size: 0.95rem;
+}
+
+/* === LAYER ARCHITECTURE === */
+.arch-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.arch-layer {
+  background: var(--panel);
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+  overflow: hidden;
+}
+
+.arch-layer:hover { background: rgba(56,189,248,0.05); }
+
+.arch-layer.active { border-left-color: var(--blue); background: rgba(56,189,248,0.07); }
+.arch-layer.l-green { border-left-color: transparent; }
+.arch-layer.l-green.active { border-left-color: var(--green); background: rgba(52,211,153,0.07); }
+.arch-layer.l-amber { border-left-color: transparent; }
+.arch-layer.l-amber.active { border-left-color: var(--amber); background: rgba(251,191,36,0.07); }
+.arch-layer.l-purple { border-left-color: transparent; }
+.arch-layer.l-purple.active { border-left-color: var(--purple); background: rgba(167,139,250,0.07); }
+
+.layer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+}
+
+.layer-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.layer-icon {
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.layer-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.layer-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.layer-toggle {
+  font-size: 1rem;
+  color: var(--muted);
+  transition: transform 0.3s;
+}
+
+.arch-layer.active .layer-toggle { transform: rotate(45deg); }
+
+.layer-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.arch-layer.active .layer-body { max-height: 600px; }
+
+.layer-content {
+  padding: 0 1.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.layer-detail {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.layer-detail-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--blue);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.layer-detail p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+/* === SECURITY GRID === */
+.sec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.sec-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.sec-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.sec-card:hover {
+  border-color: rgba(56,189,248,0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.sec-card:hover::before { opacity: 1; }
+
+.sec-card.green::before { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+.sec-card.amber::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+.sec-card.purple::before { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
+.sec-card.red::before { background: linear-gradient(90deg, transparent, var(--red), transparent); }
+
+.sec-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.sec-card h3 {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.sec-card p {
+  font-size: 0.83rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.sec-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.sec-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+.tag-blue { background: rgba(56,189,248,0.1); color: var(--blue); border: 1px solid rgba(56,189,248,0.2); }
+.tag-green { background: rgba(52,211,153,0.1); color: var(--green); border: 1px solid rgba(52,211,153,0.2); }
+.tag-amber { background: rgba(251,191,36,0.1); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
+.tag-purple { background: rgba(167,139,250,0.1); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+
+/* === COMPLIANCE MATRIX === */
+.compliance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.compliance-table th {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.compliance-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(56,189,248,0.06);
+  vertical-align: top;
+}
+
+.compliance-table tr:hover td { background: rgba(56,189,248,0.03); }
+
+.status-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-green { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.dot-amber { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+.dot-blue { background: var(--blue); box-shadow: 0 0 6px var(--blue); }
+
+/* === ENCRYPTION FLOW === */
+.enc-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.enc-step {
+  flex: 1;
+  background: var(--panel);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  position: relative;
+  border-right: 1px solid var(--border);
+  transition: background 0.3s;
+}
+
+.enc-step:last-child { border-right: none; }
+.enc-step:hover { background: rgba(56,189,248,0.06); }
+
+.enc-step::after {
+  content: '→';
+  position: absolute;
+  right: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--blue);
+  font-size: 1.2rem;
+  z-index: 1;
+}
+
+.enc-step:last-child::after { display: none; }
+
+.enc-emoji { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+.enc-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+.enc-value { font-size: 0.85rem; color: #fff; font-weight: 500; }
+.enc-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
+/* === ANIMATED SECURITY SHIELD === */
+.shield-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+}
+
+.shield-animation {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.shield-core {
+  width: 100px; height: 100px;
+  background: linear-gradient(135deg, var(--blue2), var(--purple));
+  border-radius: 50%;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  box-shadow: 0 0 40px rgba(56,189,248,0.3);
+  z-index: 3;
+}
+
+.shield-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 2px solid;
+  animation: ringExpand 3s ease-out infinite;
+}
+
+.ring1 { width:120px; height:120px; border-color: rgba(56,189,248,0.6); animation-delay: 0s; }
+.ring2 { width:150px; height:150px; border-color: rgba(56,189,248,0.3); animation-delay: 0.8s; }
+.ring3 { width:190px; height:190px; border-color: rgba(56,189,248,0.15); animation-delay: 1.6s; }
+
+@keyframes ringExpand {
+  0% { opacity:1; transform:translate(-50%,-50%) scale(0.8); }
+  100% { opacity:0; transform:translate(-50%,-50%) scale(1.3); }
+}
+
+/* === TERMINAL === */
+.terminal {
+  background: #010409;
+  border: 1px solid rgba(52,211,153,0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: 'Space Mono', monospace;
+}
+
+.terminal-bar {
+  background: #0d1117;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(52,211,153,0.1);
+}
+
+.t-dot { width:10px; height:10px; border-radius:50%; }
+.t-red { background:#ff5f57; }
+.t-amber { background:#febc2e; }
+.t-green { background:#28c840; }
+
+.terminal-title {
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-left: 0.5rem;
+}
+
+.terminal-body {
+  padding: 1.5rem;
+  font-size: 0.78rem;
+  line-height: 2;
+}
+
+.t-line { display: flex; gap: 0.5rem; }
+.t-prompt { color: var(--green); }
+.t-cmd { color: #fff; }
+.t-comment { color: var(--muted); }
+.t-output { color: var(--blue); padding-left: 1rem; }
+.t-success { color: var(--green); padding-left: 1rem; }
+.t-warn { color: var(--amber); padding-left: 1rem; }
+.t-cursor {
+  display: inline-block;
+  width: 8px; height: 1em;
+  background: var(--green);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 4px;
+}
+
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+/* === IAM FLOW === */
+.iam-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.iam-node {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.iam-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+.iam-label { font-size: 0.8rem; font-weight: 600; color: #fff; }
+.iam-sub { font-size: 0.7rem; color: var(--muted); margin-top: 0.25rem; }
+
+.iam-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.arrow-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--purple));
+  position: relative;
+}
+
+.arrow-line::after {
+  content: '';
+  position: absolute;
+  right: -6px; top: -4px;
+  border-left: 8px solid var(--purple);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.arrow-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* === GDPR CHECKLIST === */
+.gdpr-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.gdpr-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.gdpr-item:hover {
+  border-color: rgba(52,211,153,0.3);
+  background: rgba(52,211,153,0.05);
+}
+
+.gdpr-check {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(52,211,153,0.15);
+  border: 1px solid var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  color: var(--green);
+  margin-top: 2px;
+}
+
+.gdpr-text strong {
+  display: block;
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.gdpr-text span {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* === MULTI-TENANT DIAGRAM === */
+.tenant-arch {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.tenant-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.tenant-header .t-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--blue);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.tenant-header h3 { font-size: 1.1rem; color: #fff; }
+
+.tenant-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.t-layer {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.t-layer-header {
+  background: rgba(0,0,0,0.4);
+  padding: 0.6rem 1rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+
+.t-layer-body {
+  padding: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.t-box {
+  flex: 1;
+  min-width: 140px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 0.78rem;
+}
+
+.t-box.isolated { border-color: rgba(56,189,248,0.3); }
+.t-box.shared { border-color: rgba(251,191,36,0.3); }
+.t-box.rls { border-color: rgba(167,139,250,0.3); }
+
+.t-box-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+  font-family: 'Space Mono', monospace;
+}
+
+.t-box-value {
+  font-size: 0.82rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+.t-box-badge {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.6rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Space Mono', monospace;
+}
+
+.badge-blue { background: rgba(56,189,248,0.15); color: var(--blue); }
+.badge-amber { background: rgba(251,191,36,0.15); color: var(--amber); }
+.badge-purple { background: rgba(167,139,250,0.15); color: var(--purple); }
+
+/* === INCIDENT RESPONSE === */
+.incident-timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.incident-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--blue), var(--purple), var(--green));
+}
+
+.incident-step {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.incident-step::before {
+  content: '';
+  position: absolute;
+  left: -2.45rem;
+  top: 0.4rem;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--blue);
+}
+
+.incident-step.step-2::before { border-color: var(--amber); }
+.incident-step.step-3::before { border-color: var(--purple); }
+.incident-step.step-4::before { border-color: var(--green); }
+.incident-step.step-5::before { border-color: var(--green); background: var(--green); }
+
+.incident-phase {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--blue);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.incident-step.step-2 .incident-phase { color: var(--amber); }
+.incident-step.step-3 .incident-phase { color: var(--purple); }
+.incident-step.step-4 .incident-phase { color: var(--green); }
+.incident-step.step-5 .incident-phase { color: var(--green); }
+
+.incident-title { font-weight: 600; color: #fff; margin-bottom: 0.3rem; }
+.incident-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+/* === SEPARATOR === */
+.sep {
+  position: relative;
+  z-index: 2;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0;
+}
+
+/* === FOOTER === */
+footer {
+  position: relative;
+  z-index: 2;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  color: var(--blue);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+.footer-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+}
+
+/* === REVEAL ANIMATION === */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .sec-grid { grid-template-columns: 1fr; }
+  .threat-counter { grid-template-columns: repeat(2, 1fr); }
+  .layer-content { grid-template-columns: 1fr; }
+  .enc-flow { flex-direction: column; }
+  .enc-step::after { content:'↓'; right:50%; top:auto; bottom:-12px; transform:translateX(50%); }
+  .iam-flow { grid-template-columns: 1fr; }
+  .gdpr-list { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .tenant-layers .t-layer-body { flex-direction: column; }
+}
+
+/* === ANIMATED NUMBER === */
+@keyframes countUp {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+
+.animated-num { animation: countUp 1s ease; }
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <div class="logo">🔒 AI Fix Pro Security</div>
-            <ul class="nav-links">
-                <li><a href="#architecture">Architecture</a></li>
-                <li><a href="#security">Security</a></li>
-                <li><a href="#compliance">Compliance</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+
+<div class="bg-grid"></div>
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+<div class="scanline"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GCP·SEC·ARCH</div>
+  <ul class="nav-links">
+    <li><a href="javascript:void(0)" onclick="navTo('layers')">Architecture</a></li>
+    <li><a href="javascript:void(0)" onclick="navTo('controls')">Controls</a></li>
+    <li><a href="javascript:void(0)" onclick="navTo('encryption')">Encryption</a></li>
+    <li><a href="javascript:void(0)" onclick="navTo('iam')">IAM</a></li>
+    <li><a href="javascript:void(0)" onclick="navTo('gdpr')">GDPR</a></li>
+    <li><a href="javascript:void(0)" onclick="navTo('tenancy')">Multi-Tenant</a></li>
+    <li><a href="javascript:void(0)" onclick="navTo('incident')">Incident</a></li>
+  </ul>
+  <div class="nav-badge">CONFIDENTIAL</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Enterprise Infrastructure · Google Cloud Platform</div>
+  <h1>GCP Security<br>Architecture</h1>
+  <p class="hero-sub">
+    A comprehensive security framework for multi-tenant SaaS infrastructure — 
+    covering encryption, identity, network isolation, GDPR compliance, and incident response across Google Cloud Platform.
+  </p>
+
+  <div class="threat-counter">
+    <div class="counter-cell">
+      <span class="counter-num" data-target="256">256</span>
+      <span class="counter-label">AES Encryption</span>
+    </div>
+    <div class="counter-cell">
+      <span class="counter-num" data-target="7">7</span>
+      <span class="counter-label">Security Layers</span>
+    </div>
+    <div class="counter-cell">
+      <span class="counter-num" data-target="100">100%</span>
+      <span class="counter-label">TLS in Transit</span>
+    </div>
+    <div class="counter-cell">
+      <span class="counter-num" data-target="0">0</span>
+      <span class="counter-label">Public DB Access</span>
+    </div>
+  </div>
+
+  <div class="shield-wrap">
+    <div class="shield-animation">
+      <div class="shield-ring ring1"></div>
+      <div class="shield-ring ring2"></div>
+      <div class="shield-ring ring3"></div>
+      <div class="shield-core">🛡️</div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- LAYERED ARCHITECTURE -->
+<section class="section reveal" id="layers">
+  <div class="section-tag">// 01 · DEFENCE IN DEPTH</div>
+  <h2 class="section-title">7-Layer Security Architecture</h2>
+  <p class="section-desc">Every component is protected by multiple independent security controls — no single point of failure.</p>
+
+  <div class="arch-layers">
+
+    <div class="arch-layer l-green" onclick="toggleLayer(this)">
+      <div class="layer-header">
+        <div class="layer-left">
+          <div class="layer-icon" style="background:rgba(52,211,153,0.1);">🌐</div>
+          <div>
+            <div class="layer-num">LAYER 01</div>
+            <div class="layer-name">Network Perimeter · Cloud Armor & CDN</div>
+          </div>
         </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="hero">
-        <h1>Enterprise-Grade Security Architecture</h1>
-        <p>Multi-tenant database isolation with defense-in-depth security on Google Cloud Platform</p>
-        <div class="badge-container">
-            <span class="badge">✓ GDPR Compliant</span>
-            <span class="badge">✓ ISO 27001 Controls</span>
-            <span class="badge">✓ SOC 2 (In Progress)</span>
-            <span class="badge">✓ 24-Hour Data Deletion</span>
+        <span class="layer-toggle">+</span>
+      </div>
+      <div class="layer-body">
+        <div class="layer-content">
+          <div class="layer-detail">
+            <div class="layer-detail-title">Cloud Armor WAF</div>
+            <p>Web Application Firewall with pre-configured rulesets blocking OWASP Top 10 threats including SQLi, XSS, RFI, and LFI. Rate limiting enforced per IP with adaptive protection enabled.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">DDoS Mitigation</div>
+            <p>Google's global anycast network absorbs volumetric attacks at the edge. Cloud Armor adaptive protection uses ML to detect and block application-layer DDoS in real time.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">TLS Termination</div>
+            <p>All traffic terminated at Google's edge with TLS 1.3. Certificates auto-provisioned and rotated via Google-managed SSL. HSTS enforced with 1-year max-age.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">IP Allowlisting</div>
+            <p>Admin APIs restricted to allowlisted CIDR ranges. Cloud Armor security policies enforce geographic restrictions and block known malicious IP ranges.</p>
+          </div>
         </div>
-    </section>
-
-    <!-- What We Do -->
-    <div class="container">
-        <section class="section animate-in">
-            <div class="section-header">
-                <h2>What We Actually Do</h2>
-                <p>AI Fix Pro is a garage automation platform, not an AI data company. We help automotive service centers manage customer communications—AI is simply the technical tool that powers our natural language processing.</p>
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">8</div>
-                    <div class="stat-label">Security Layers</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">24h</div>
-                    <div class="stat-label">Data Deletion</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">0</div>
-                    <div class="stat-label">Data Breaches</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Encrypted</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Multi-Tenant Architecture -->
-        <section class="section animate-in" id="architecture">
-            <div class="section-header">
-                <h2>True Database Isolation</h2>
-                <p>Each customer gets their own PostgreSQL database—not filtered tables, not row-level security. Complete architectural isolation.</p>
-            </div>
-
-            <div class="db-diagram">
-                <div class="db-instance">
-                    <div class="db-instance-title">📊 Google Cloud SQL Instance (europe-west2)</div>
-                    <ul class="db-list">
-                        <li><strong>tenant_rrlondon_db</strong> → RR London (Complete isolated database)</li>
-                        <li><strong>tenant_smartwheels_db</strong> → Smartwheels (Complete isolated database)</li>
-                        <li><strong>tenant_premier_db</strong> → Premier Auto (Complete isolated database)</li>
-                        <li><strong>shared_lookups_db</strong> → Work statuses, service codes (Shared only)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="highlight-box">
-                <strong>Critical Point:</strong> Cross-tenant queries are <strong>architecturally impossible</strong>. Even if our application had a security vulnerability, attackers cannot access data from other tenants because it exists in a completely separate database.
-            </div>
-
-            <h3 style="margin-top: 3rem; margin-bottom: 1.5rem;">Comparison: Database Isolation Approaches</h3>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Approach</th>
-                        <th>Isolation Level</th>
-                        <th>Cross-Tenant Risk</th>
-                        <th>SQL Injection Risk</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Tenant ID Filtering</td>
-                        <td>Application-level</td>
-                        <td><span class="cross">⚠️ High</span> (if filter forgotten)</td>
-                        <td><span class="cross">⚠️ Medium</span></td>
-                    </tr>
-                    <tr>
-                        <td>Row Level Security (RLS)</td>
-                        <td>Database policy</td>
-                        <td><span class="cross">⚠️ Medium</span> (if misconfigured)</td>
-                        <td><span class="check">✓ Low</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Separate Databases (Our Approach)</strong></td>
-                        <td><strong>Database-level</strong></td>
-                        <td><span class="check">✓ Very Low</span> (architectural)</td>
-                        <td><span class="check">✓ Very Low</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- Security Stack -->
-        <section class="section animate-in" id="security">
-            <div class="section-header">
-                <h2>8-Layer Security Stack</h2>
-                <p>Defense-in-depth architecture ensures multiple independent protections</p>
-            </div>
-
-            <div class="architecture-box">
-                <div class="architecture-layer">
-                    <h3><span class="layer-number">8</span> Output Validation</h3>
-                    <p>Filters VINs, API keys, and sensitive data patterns before response delivery. Regex-based blocking prevents data leakage even if AI misbehaves.</p>
-                </div>
-
-                <div class="architecture-layer">
-                    <h3><span class="layer-number">7</span> AI Processing (Third-Party AI Service)</h3>
-                    <p>Sandboxed AI engine with no network access, no database credentials, no direct API access. Receives only sanitized prompts and pre-retrieved data. Enterprise agreement prohibits training on customer data.</p>
-                </div>
-
-                <div class="architecture-layer">
-                    <h3><span class="layer-number">6</span> Application Logic (Cloud Run)</h3>
-                    <p>Container isolation with input sanitization, rate limiting, and automatic scaling. Each request runs in isolated environment.</p>
-                </div>
-
-                <div class="architecture-layer">
-                    <h3><span class="layer-number">5</span> ORM Security (SQLAlchemy)</h3>
-                    <p>Automatic parameterized queries prevent SQL injection. Type validation rejects malformed input before reaching database.</p>
-                </div>
-
-                <div class="architecture-layer">
-                    <h3><span class="layer-number">4</span> Database Access (Cloud SQL Proxy)</h3>
-                    <p>IAM-based authentication with automatic credential rotation. All connections encrypted via TLS 1.3.</p>
-                </div>
-
-                <div class="architecture-layer">
-                    <h3><span class="layer-number">3</span> Database Server (Cloud SQL)</h3>
-                    <p>Private IP only, AES-256 encryption at rest, automated backups. 400-day audit log retention.</p>
-                </div>
-
-                <div class="architecture-layer">
-                    <h3><span class="layer-number">2</span> Network Security (VPC + Firewall)</h3>
-                    <p>Virtual Private Cloud with deny-all inbound rules. Database accessible only via authorized Cloud Run services.</p>
-                </div>
-
-                <div class="architecture-layer">
-                    <h3><span class="layer-number">1</span> DDoS Protection (Cloud Armor)</h3>
-                    <p>Edge protection with automatic DDoS mitigation, rate limiting, and geographic filtering.</p>
-                </div>
-            </div>
-
-            <div class="highlight-box">
-                <strong>Result:</strong> An attacker would need to bypass 8 consecutive security layers to access your API data. Each layer has independent controls.
-            </div>
-        </section>
-
-        <!-- SQLAlchemy Security -->
-        <section class="section animate-in">
-            <div class="section-header">
-                <h2>SQLAlchemy ORM: Automatic SQL Injection Protection</h2>
-                <p>All database queries use parameterization—user input is always treated as data, never as executable code</p>
-            </div>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>Parameterized Queries</h3>
-                    <p>All queries automatically use parameters. SQL injection is impossible because user input never becomes SQL code.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">✓</div>
-                    <h3>Type Validation</h3>
-                    <p>Data types enforced at ORM level. Invalid input (wrong type, format, length) rejected before reaching database.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🚫</div>
-                    <h3>No String Concatenation</h3>
-                    <p>Zero raw SQL strings. All queries built through ORM methods that automatically handle escaping.</p>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Example: How It Protects Against SQL Injection</h3>
-            <div class="code-block">
-<span class="code-comment"># User provides: registration = "AB12 CDE"</span>
-vehicle = db.query(Vehicle).filter(Vehicle.registration == user_input).first()
-
-<span class="code-comment"># SQLAlchemy generates SAFE query:</span>
-<span class="code-comment"># SELECT * FROM vehicles WHERE registration = $1</span>
-<span class="code-comment"># Parameters: ['AB12 CDE'] ← Treated as data, not code</span>
-
-<span class="code-comment"># Even with malicious input: "AB12'; DROP TABLE vehicles; --"</span>
-<span class="code-comment"># SQLAlchemy safely escapes it as a string search</span>
-<span class="code-comment"># SELECT * FROM vehicles WHERE registration = $1</span>
-<span class="code-comment"># Parameters: ["AB12'; DROP TABLE vehicles; --"] ← Harmless</span>
-            </div>
-        </section>
-
-        <!-- Data Lifecycle -->
-        <section class="section animate-in">
-            <div class="section-header">
-                <h2>24-Hour Data Lifecycle</h2>
-                <p>Automated deletion ensures compliance with data minimization principles</p>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h4>Hour 0: Data Retrieved</h4>
-                    <p>Customer calls asking about MOT. Backend queries your API and stores result in tenant's isolated database with timestamp.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Hours 0-24: Cache Available</h4>
-                    <p>If same customer calls again within 24 hours, we use cached data (reduces API calls to your service).</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Hour 24: Automatic Deletion</h4>
-                    <p>Cloud Function runs at 2:00 AM UTC daily. Deletes all records with retrieved_at > 24 hours ago.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Audit Trail: Proof of Deletion</h4>
-                    <p>Cloud Logging captures deletion events with timestamps, record counts, and database names. 400-day retention for compliance verification.</p>
-                </div>
-            </div>
-
-            <div class="code-block">
-<span class="code-comment"># Cloud Function: Runs daily at 2:00 AM UTC</span>
-<span class="code-keyword">def</span> purge_expired_data():
-    <span class="code-keyword">for</span> tenant_db <span class="code-keyword">in</span> all_tenant_databases:
-        <span class="code-comment"># Delete vehicle data older than 24 hours</span>
-        result = tenant_db.execute(<span class="code-string">"""
-            DELETE FROM vehicle_cache 
-            WHERE retrieved_at < NOW() - INTERVAL '24 hours'
-            RETURNING id
-        """</span>)
-        
-        <span class="code-comment"># Log deletion for audit trail</span>
-        log_to_cloud_logging({
-            <span class="code-string">'database'</span>: tenant_db.name,
-            <span class="code-string">'deleted_count'</span>: result.rowcount,
-            <span class="code-string">'timestamp'</span>: datetime.utcnow()
-        })
-            </div>
-        </section>
-
-        <!-- GCP Security Features -->
-        <section class="section animate-in">
-            <div class="section-header">
-                <h2>Google Cloud Platform Security</h2>
-                <p>Enterprise-grade infrastructure trusted by billions of users</p>
-            </div>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔐</div>
-                    <h3>Encryption Everywhere</h3>
-                    <p><strong>At Rest:</strong> AES-256 encryption for all data, backups, and logs.<br><strong>In Transit:</strong> TLS 1.3 mandatory (older versions disabled).</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔑</div>
-                    <h3>IAM Least Privilege</h3>
-                    <p>Service accounts can only read/write data. Cannot delete databases, create users, or modify infrastructure.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🌐</div>
-                    <h3>Private Network</h3>
-                    <p>Database has no public IP. Accessible only via Cloud SQL Proxy from authorized Cloud Run services.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Audit Logging</h3>
-                    <p>All database queries logged. 400-day retention. Real-time monitoring alerts for suspicious patterns.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Automatic Backups</h3>
-                    <p>Daily encrypted backups stored in separate region. Point-in-time recovery up to 7 days.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>DDoS Protection</h3>
-                    <p>Cloud Armor blocks malicious traffic at edge. Rate limiting prevents abuse.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Compliance -->
-        <section class="section animate-in" id="compliance">
-            <div class="section-header">
-                <h2>Compliance & Certifications</h2>
-                <p>Meeting regulatory requirements through technical and organizational measures</p>
-            </div>
-
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Standard</th>
-                        <th>Status</th>
-                        <th>Key Controls</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>GDPR</strong><br>General Data Protection Regulation</td>
-                        <td><span class="check">✓ Compliant</span></td>
-                        <td>Data minimization, 24h storage limitation, encryption, access control, audit trails</td>
-                    </tr>
-                    <tr>
-                        <td><strong>UK DPA 2018</strong><br>Data Protection Act</td>
-                        <td><span class="check">✓ Compliant</span></td>
-                        <td>Lawful basis (legitimate interests), data subject rights, protection by design</td>
-                    </tr>
-                    <tr>
-                        <td><strong>ISO 27001</strong><br>Information Security</td>
-                        <td><span class="cross">⏳ In Progress</span></td>
-                        <td>Access control (A.9), Cryptography (A.10), Operations security (A.12)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>SOC 2 Type II</strong><br>Service Organization Controls</td>
-                        <td><span class="cross">⏳ In Progress</span></td>
-                        <td>Security, availability, confidentiality (Expected Q2 2026)</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- What We Don't Do -->
-        <section class="section animate-in">
-            <div class="section-header">
-                <h2>What We DON'T Do</h2>
-                <p>Clear boundaries on data usage and business model</p>
-            </div>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>❌ No Dataset Building</h3>
-                    <p>We don't create derivative databases or aggregate vehicle data across customers. Data is used transiently and deleted within 24 hours.</p>
-                </div>
-
-                <div class="feature-card">
-                    <h3>❌ No AI Training</h3>
-                    <p>Your vehicle data never enters any machine learning training pipeline. We use pre-trained models with zero data retention.</p>
-                </div>
-
-                <div class="feature-card">
-                    <h3>❌ No Data Sales</h3>
-                    <p>We sell automation subscriptions (£99-299/month per garage), not data. Revenue comes from services, not information resale.</p>
-                </div>
-
-                <div class="feature-card">
-                    <h3>❌ No Cross-Tenant Analysis</h3>
-                    <p>Database isolation makes aggregation across tenants architecturally impossible. Each customer's data is completely separate.</p>
-                </div>
-
-                <div class="feature-card">
-                    <h3>❌ No Long-Term Storage</h3>
-                    <p>No "just in case" data hoarding. Automated deletion enforces 24-hour maximum retention with audit trails.</p>
-                </div>
-
-                <div class="feature-card">
-                    <h3>❌ No Third-Party Sharing</h3>
-                    <p>Vehicle data never leaves our GCP infrastructure. No sharing with advertisers, data brokers, or analytics services.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta-section">
-            <h2>Want to Verify Our Security?</h2>
-            <p>We're happy to provide technical deep-dives, audit access, and security documentation</p>
-            <a href="#contact" class="btn">Schedule Security Review</a>
-            <a href="#" class="btn btn-secondary" onclick="alert('Technical architecture documentation available upon NDA execution. Contact: admin@aifixpro.co.uk or +44 7887 204486')">Download Technical Docs</a>
-        </section>
-
-        <!-- Contact -->
-        <section class="section animate-in" id="contact">
-            <div class="section-header">
-                <h2>Get In Touch</h2>
-                <p>Questions about our security architecture? Let's talk.</p>
-            </div>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>📧 Security Inquiries</h3>
-                    <p><strong>Email:</strong> <a href="mailto:admin@aifixpro.co.uk" style="color: var(--primary); text-decoration: none;">admin@aifixpro.co.uk</a><br>
-                    <strong>Phone:</strong> <a href="tel:+447887204486" style="color: var(--primary); text-decoration: none;">+44 7887 204486</a><br>
-                    <strong>Response time:</strong> 24 hours (4 hours for urgent)</p>
-                </div>
-
-                <div class="feature-card">
-                    <h3>🔧 Technical Reviews</h3>
-                    <p><strong>CTO:</strong> Available for architecture discussions<br>
-                    <strong>Topics:</strong> Database design, GCP setup, compliance</p>
-                </div>
-
-                <div class="feature-card">
-                    <h3>🚨 Incident Reporting</h3>
-                    <p><strong>24/7 Hotline:</strong> <a href="tel:+447887204486" style="color: var(--primary); text-decoration: none;">+44 7887 204486</a><br>
-                    <strong>Email:</strong> <a href="mailto:admin@aifixpro.co.uk" style="color: var(--primary); text-decoration: none;">admin@aifixpro.co.uk</a><br>
-                    <strong>PGP:</strong> Encrypted communications supported</p>
-                </div>
-            </div>
-        </section>
+      </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="logo" style="font-size: 1.75rem; margin-bottom: 1rem;">🔒 AI Fix Pro</div>
-            <p style="opacity: 0.8; margin-bottom: 2rem;">Enterprise-grade security for garage automation</p>
-            
-            <div class="footer-links">
-                <a href="#architecture">Architecture</a>
-                <a href="#security">Security</a>
-                <a href="#compliance">Compliance</a>
-                <a href="#contact">Contact</a>
-            </div>
-
-            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
-                <p style="opacity: 0.6; font-size: 0.875rem;">
-                    AI Fix Pro Ltd. | Registered in England & Wales<br>
-                    Data Protection Officer: Available upon request<br>
-                    Last updated: December 31, 2025 | Version 2.0
-                </p>
-            </div>
+    <div class="arch-layer" onclick="toggleLayer(this)">
+      <div class="layer-header">
+        <div class="layer-left">
+          <div class="layer-icon" style="background:rgba(56,189,248,0.1);">🔒</div>
+          <div>
+            <div class="layer-num">LAYER 02</div>
+            <div class="layer-name">Identity & Access Management · IAM + RBAC</div>
+          </div>
         </div>
-    </footer>
+        <span class="layer-toggle">+</span>
+      </div>
+      <div class="layer-body">
+        <div class="layer-content">
+          <div class="layer-detail">
+            <div class="layer-detail-title">Principle of Least Privilege</div>
+            <p>Every service account granted minimum required permissions only. Cloud Run services, Cloud Build, and Cloud SQL use dedicated service accounts with scoped IAM roles — no wildcard permissions.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Service Account Isolation</div>
+            <p>Each Cloud Run service runs under a dedicated service account. Cross-service communication requires explicit IAM bindings — no shared credentials, no ambient authority.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Workload Identity</div>
+            <p>Kubernetes Workload Identity Federation used for GKE workloads, eliminating the need for service account key files. Short-lived tokens only — no long-lived credentials.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Admin Access Controls</div>
+            <p>Console access requires 2FA/MFA. Organisation-level IAM policies enforced via Resource Manager. All privilege escalations logged in Cloud Audit Logs with alerts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+    <div class="arch-layer l-amber" onclick="toggleLayer(this)">
+      <div class="layer-header">
+        <div class="layer-left">
+          <div class="layer-icon" style="background:rgba(251,191,36,0.1);">🏗️</div>
+          <div>
+            <div class="layer-num">LAYER 03</div>
+            <div class="layer-name">VPC Network Isolation · Private Connectivity</div>
+          </div>
+        </div>
+        <span class="layer-toggle">+</span>
+      </div>
+      <div class="layer-body">
+        <div class="layer-content">
+          <div class="layer-detail">
+            <div class="layer-detail-title">VPC Architecture</div>
+            <p>Dedicated VPC with custom subnet design — application tier, data tier, and management tier separated into distinct subnets with strict firewall rules controlling east-west traffic.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Private Service Connect</div>
+            <p>Cloud SQL accessed exclusively via Private Service Connect — no public IP. Cloud Run connects to Cloud SQL via Cloud SQL Auth Proxy over private networking, never over public internet.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">VPC Service Controls</div>
+            <p>Security perimeters defined around GCP projects — preventing data exfiltration via API abuse. Cloud Storage, BigQuery, and Cloud SQL enclosed in service perimeters.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Serverless VPC Connector</div>
+            <p>Cloud Run services connected to VPC via Serverless VPC Access connector — all outbound traffic routed through private network. No direct internet egress from application services.</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        // Animate elements on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+    <div class="arch-layer l-purple" onclick="toggleLayer(this)">
+      <div class="layer-header">
+        <div class="layer-left">
+          <div class="layer-icon" style="background:rgba(167,139,250,0.1);">🗄️</div>
+          <div>
+            <div class="layer-num">LAYER 04</div>
+            <div class="layer-name">Data Security · Encryption + Secret Manager</div>
+          </div>
+        </div>
+        <span class="layer-toggle">+</span>
+      </div>
+      <div class="layer-body">
+        <div class="layer-content">
+          <div class="layer-detail">
+            <div class="layer-detail-title">Encryption at Rest</div>
+            <p>All Cloud SQL data encrypted using AES-256 with Google-managed encryption keys. Customer-Managed Encryption Keys (CMEK) available via Cloud KMS for sensitive workloads.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Secret Manager</div>
+            <p>All secrets — database credentials, API keys, JWT secrets, third-party tokens — stored exclusively in GCP Secret Manager. Secrets accessed at runtime only; never hardcoded or in environment variable plaintext.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Database Isolation (RLS)</div>
+            <p>Multi-tenant data separated via per-client PostgreSQL schemas with Row-Level Security policies. Application-level tenant context enforced at connection — cross-tenant queries structurally impossible.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Backup Encryption</div>
+            <p>Automated Cloud SQL backups encrypted with same AES-256 standard. Point-in-time recovery enabled with 7-day retention. Backups stored in geographically separate region.</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+    <div class="arch-layer" onclick="toggleLayer(this)">
+      <div class="layer-header">
+        <div class="layer-left">
+          <div class="layer-icon" style="background:rgba(56,189,248,0.1);">📦</div>
+          <div>
+            <div class="layer-num">LAYER 05</div>
+            <div class="layer-name">Container Security · Cloud Run + Container Registry</div>
+          </div>
+        </div>
+        <span class="layer-toggle">+</span>
+      </div>
+      <div class="layer-body">
+        <div class="layer-content">
+          <div class="layer-detail">
+            <div class="layer-detail-title">Container Scanning</div>
+            <p>Artifact Registry with automated vulnerability scanning on every push. Critical and High CVEs block deployment via Cloud Build approval gates. Base images pinned to specific SHA digests.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Binary Authorization</div>
+            <p>Cloud Run enforces Binary Authorization policies — only images signed by trusted Cloud Build attestors can be deployed. Unsigned or unverified images are rejected at deploy time.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Minimal Base Images</div>
+            <p>All containers built on minimal Alpine Linux base images — reducing attack surface. No shell access, no package managers, no unnecessary tooling in production images.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Immutable Infrastructure</div>
+            <p>Cloud Run revisions are immutable — deployed containers never patched in place. Rollbacks achieved by routing traffic to a previous revision, not by modifying running containers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        //
+    <div class="arch-layer l-green" onclick="toggleLayer(this)">
+      <div class="layer-header">
+        <div class="layer-left">
+          <div class="layer-icon" style="background:rgba(52,211,153,0.1);">📋</div>
+          <div>
+            <div class="layer-num">LAYER 06</div>
+            <div class="layer-name">Audit & Observability · Logging + Monitoring</div>
+          </div>
+        </div>
+        <span class="layer-toggle">+</span>
+      </div>
+      <div class="layer-body">
+        <div class="layer-content">
+          <div class="layer-detail">
+            <div class="layer-detail-title">Cloud Audit Logs</div>
+            <p>Admin Activity, Data Access, and System Event logs enabled across all GCP services. Logs immutable — exported to Cloud Storage for 90-day retention with tamper-evident signatures.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Security Command Center</div>
+            <p>GCP Security Command Center continuously scans for misconfigurations, IAM anomalies, exposed services, and compliance violations. Findings surfaced with remediation guidance.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Cloud Monitoring Alerts</div>
+            <p>Real-time alerting on failed authentication attempts, unusual API activity, database connection spikes, and Secret Manager access from unexpected identities.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Log-based Metrics</div>
+            <p>Custom log-based metrics track security events — privilege escalations, denied requests, unusual data volumes. Dashboards in Cloud Monitoring with PagerDuty integration.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-layer l-amber" onclick="toggleLayer(this)">
+      <div class="layer-header">
+        <div class="layer-left">
+          <div class="layer-icon" style="background:rgba(251,191,36,0.1);">⚡</div>
+          <div>
+            <div class="layer-num">LAYER 07</div>
+            <div class="layer-name">Application Security · OWASP + Input Validation</div>
+          </div>
+        </div>
+        <span class="layer-toggle">+</span>
+      </div>
+      <div class="layer-body">
+        <div class="layer-content">
+          <div class="layer-detail">
+            <div class="layer-detail-title">Input Validation</div>
+            <p>Server-side validation on all API inputs — type checking, length limits, format validation, and sanitisation. SQLAlchemy ORM used throughout — parameterised queries prevent SQL injection structurally.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">JWT Authentication</div>
+            <p>Stateless JWT tokens with RS256 signing, short expiry windows (15 min access, 7 day refresh), and token rotation on refresh. Tokens validated on every request — no session state server-side.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">CORS Policy</div>
+            <p>Strict CORS configuration — only approved origins accepted. Preflight requests validated. No wildcard origins in production. Headers include Content-Security-Policy, X-Frame-Options, and Referrer-Policy.</p>
+          </div>
+          <div class="layer-detail">
+            <div class="layer-detail-title">Rate Limiting</div>
+            <p>API rate limiting enforced at both Cloud Armor (edge) and application (middleware) layers. Per-tenant rate limits prevent noisy-neighbour abuse. Exponential backoff enforced on failed auth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- SECURITY CONTROLS GRID -->
+<section class="section reveal" id="controls">
+  <div class="section-tag">// 02 · SECURITY CONTROLS</div>
+  <h2 class="section-title">Core Security Controls</h2>
+  <p class="section-desc">Key technical controls implemented across the infrastructure stack.</p>
+
+  <div class="sec-grid">
+
+    <div class="sec-card green">
+      <span class="sec-icon">🔐</span>
+      <h3>Secret Manager</h3>
+      <p>All credentials, API keys, database passwords, and third-party tokens stored in GCP Secret Manager. Secrets versioned, audited, and accessed via IAM-controlled service accounts at runtime only.</p>
+      <div class="sec-tags">
+        <span class="sec-tag tag-green">AES-256</span>
+        <span class="sec-tag tag-green">Versioned</span>
+        <span class="sec-tag tag-green">Audit Logged</span>
+      </div>
+    </div>
+
+    <div class="sec-card">
+      <span class="sec-icon">🌐</span>
+      <h3>VPC Private Connectivity</h3>
+      <p>Cloud SQL has no public IP. All database connections route via Cloud SQL Auth Proxy over private VPC. Zero database exposure to public internet — connection strings never leave GCP infrastructure.</p>
+      <div class="sec-tags">
+        <span class="sec-tag tag-blue">Private IP Only</span>
+        <span class="sec-tag tag-blue">Auth Proxy</span>
+        <span class="sec-tag tag-blue">VPC Peering</span>
+      </div>
+    </div>
+
+    <div class="sec-card purple">
+      <span class="sec-icon">🏛️</span>
+      <h3>Row-Level Security</h3>
+      <p>PostgreSQL RLS policies enforce tenant isolation at the database level. Even if application-layer tenant routing fails, the database engine itself rejects cross-tenant data access.</p>
+      <div class="sec-tags">
+        <span class="sec-tag tag-purple">Per-Schema</span>
+        <span class="sec-tag tag-purple">RLS Policies</span>
+        <span class="sec-tag tag-purple">Structural</span>
+      </div>
+    </div>
+
+    <div class="sec-card amber">
+      <span class="sec-icon">📊</span>
+      <h3>Cloud Audit Logs</h3>
+      <p>Immutable audit trail across all GCP services — Admin Activity, Data Access, and System Events. 90-day retention exported to Cloud Storage. Tampering structurally prevented by Google's logging infrastructure.</p>
+      <div class="sec-tags">
+        <span class="sec-tag tag-amber">Immutable</span>
+        <span class="sec-tag tag-amber">90-Day Retention</span>
+        <span class="sec-tag tag-amber">Real-Time</span>
+      </div>
+    </div>
+
+    <div class="sec-card red">
+      <span class="sec-icon">🧱</span>
+      <h3>Cloud Armor WAF</h3>
+      <p>Web Application Firewall protecting against OWASP Top 10 — SQL injection, XSS, CSRF, RFI, and LFI. Adaptive ML-based DDoS protection with rate limiting and geo-restriction capabilities.</p>
+      <div class="sec-tags">
+        <span class="sec-tag tag-blue">OWASP Top 10</span>
+        <span class="sec-tag tag-blue">DDoS</span>
+        <span class="sec-tag tag-blue">Rate Limiting</span>
+      </div>
+    </div>
+
+    <div class="sec-card">
+      <span class="sec-icon">📦</span>
+      <h3>Container Hardening</h3>
+      <p>Minimal Alpine base images, no root execution, read-only filesystems, Binary Authorization enforcement. Container images scanned on every build — CVE blocking gates prevent vulnerable images reaching production.</p>
+      <div class="sec-tags">
+        <span class="sec-tag tag-green">Alpine Linux</span>
+        <span class="sec-tag tag-green">No Root</span>
+        <span class="sec-tag tag-green">CVE Scanning</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ENCRYPTION FLOW -->
+<section class="section reveal" id="encryption">
+  <div class="section-tag">// 03 · ENCRYPTION</div>
+  <h2 class="section-title">Data Encryption Pipeline</h2>
+  <p class="section-desc">End-to-end encryption across every stage — from client browser to database storage.</p>
+
+  <div class="enc-flow">
+    <div class="enc-step">
+      <span class="enc-emoji">💻</span>
+      <div class="enc-label">Client</div>
+      <div class="enc-value">HTTPS / TLS 1.3</div>
+      <div class="enc-sub">Browser → Edge</div>
+    </div>
+    <div class="enc-step">
+      <span class="enc-emoji">🛡️</span>
+      <div class="enc-label">Edge</div>
+      <div class="enc-value">Cloud Armor</div>
+      <div class="enc-sub">WAF + DDoS filter</div>
+    </div>
+    <div class="enc-step">
+      <span class="enc-emoji">📦</span>
+      <div class="enc-label">Application</div>
+      <div class="enc-value">Cloud Run</div>
+      <div class="enc-sub">JWT validation</div>
+    </div>
+    <div class="enc-step">
+      <span class="enc-emoji">🔌</span>
+      <div class="enc-label">Proxy</div>
+      <div class="enc-value">Auth Proxy</div>
+      <div class="enc-sub">IAM-authenticated</div>
+    </div>
+    <div class="enc-step">
+      <span class="enc-emoji">🗄️</span>
+      <div class="enc-label">Database</div>
+      <div class="enc-value">AES-256 at rest</div>
+      <div class="enc-sub">Cloud SQL · Private IP</div>
+    </div>
+  </div>
+
+  <br>
+
+  <!-- Terminal -->
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="t-dot t-red"></div>
+      <div class="t-dot t-amber"></div>
+      <div class="t-dot t-green"></div>
+      <span class="terminal-title">security-audit.sh — cloud-shell</span>
+    </div>
+    <div class="terminal-body">
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">gcloud sql instances describe prod-db --format="value(settings.ipConfiguration)"</span></div>
+      <div class="t-line"><span class="t-output">ipv4Enabled: false</span></div>
+      <div class="t-line"><span class="t-output">privateNetwork: projects/ai-fix-pro-website/global/networks/default</span></div>
+      <div class="t-line"><span class="t-success">✓ No public IP assigned — private connectivity only</span></div>
+      <br>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">gcloud secrets list --format="table(name,replication)"</span></div>
+      <div class="t-line"><span class="t-output">DB_PASSWORD          automatic</span></div>
+      <div class="t-line"><span class="t-output">JWT_SECRET           automatic</span></div>
+      <div class="t-line"><span class="t-output">TWILIO_AUTH_TOKEN    automatic</span></div>
+      <div class="t-line"><span class="t-success">✓ All secrets stored in Secret Manager — no plaintext credentials</span></div>
+      <br>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">gcloud run services describe rahul-portfolio --region=europe-west2 --format="value(spec.template.spec.containers[0].securityContext)"</span></div>
+      <div class="t-line"><span class="t-success">✓ runAsNonRoot: true</span></div>
+      <div class="t-line"><span class="t-success">✓ readOnlyRootFilesystem: true</span></div>
+      <div class="t-line"><span class="t-prompt">$</span><span class="t-cursor"></span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- IAM FLOW -->
+<section class="section reveal" id="iam">
+  <div class="section-tag">// 04 · IDENTITY & ACCESS</div>
+  <h2 class="section-title">IAM Access Control Flow</h2>
+  <p class="section-desc">Every request authenticated and authorised through multiple independent checkpoints.</p>
+
+  <div class="iam-flow">
+    <div class="iam-node">
+      <span class="iam-icon">👤</span>
+      <div class="iam-label">User / Service</div>
+      <div class="iam-sub">Authenticated Identity</div>
+    </div>
+    <div class="iam-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-label">OAuth 2.0<br>+ MFA</div>
+    </div>
+    <div class="iam-node">
+      <span class="iam-icon">🔑</span>
+      <div class="iam-label">IAM Policy</div>
+      <div class="iam-sub">Role binding check</div>
+    </div>
+    <div class="iam-arrow">
+      <div class="arrow-line"></div>
+      <div class="arrow-label">Scoped<br>Permission</div>
+    </div>
+    <div class="iam-node">
+      <span class="iam-icon">🗄️</span>
+      <div class="iam-label">Resource</div>
+      <div class="iam-sub">Cloud SQL / Run / GCS</div>
+    </div>
+  </div>
+
+  <br>
+
+  <!-- Compliance table -->
+  <table class="compliance-table">
+    <thead>
+      <tr>
+        <th>Role / Service Account</th>
+        <th>Permissions Granted</th>
+        <th>Scope</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>cloud-run-sa@</strong></td>
+        <td>cloudsql.client, secretmanager.accessor</td>
+        <td>Project</td>
+        <td><span class="status-dot"><span class="dot dot-green"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><strong>cloud-build-sa@</strong></td>
+        <td>run.developer, artifactregistry.writer</td>
+        <td>Project</td>
+        <td><span class="status-dot"><span class="dot dot-green"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><strong>monitoring-sa@</strong></td>
+        <td>monitoring.viewer, logging.viewer</td>
+        <td>Project</td>
+        <td><span class="status-dot"><span class="dot dot-green"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><strong>Developer Access</strong></td>
+        <td>viewer + limited editor, no secret access</td>
+        <td>Restricted</td>
+        <td><span class="status-dot"><span class="dot dot-amber"></span>MFA Required</span></td>
+      </tr>
+      <tr>
+        <td><strong>Public / Unauthenticated</strong></td>
+        <td>Cloud Run invoke (frontend only)</td>
+        <td>Service</td>
+        <td><span class="status-dot"><span class="dot dot-blue"></span>Frontend Only</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<hr class="sep">
+
+<!-- GDPR -->
+<section class="section reveal" id="gdpr">
+  <div class="section-tag">// 05 · COMPLIANCE</div>
+  <h2 class="section-title">GDPR & Data Governance</h2>
+  <p class="section-desc">Compliance controls for data handling, retention, and subject rights.</p>
+
+  <div class="gdpr-list">
+    <div class="gdpr-item">
+      <div class="gdpr-check">✓</div>
+      <div class="gdpr-text">
+        <strong>Data Minimisation</strong>
+        <span>Only data strictly necessary for the service is collected and processed. No third-party analytics or tracking scripts on any internal platform.</span>
+      </div>
+    </div>
+    <div class="gdpr-item">
+      <div class="gdpr-check">✓</div>
+      <div class="gdpr-text">
+        <strong>Data Subject Rights (DSR)</strong>
+        <span>Right to access, rectification, erasure, and portability supported. DSR requests can be fulfilled within 72 hours via database-level operations on per-client schemas.</span>
+      </div>
+    </div>
+    <div class="gdpr-item">
+      <div class="gdpr-check">✓</div>
+      <div class="gdpr-text">
+        <strong>Data Residency</strong>
+        <span>All data stored in GCP europe-west2 (London) region. No data transferred outside UK/EEA without explicit consent and appropriate safeguards.</span>
+      </div>
+    </div>
+    <div class="gdpr-item">
+      <div class="gdpr-check">✓</div>
+      <div class="gdpr-text">
+        <strong>Encryption Standard</strong>
+        <span>Personal data encrypted at rest with AES-256 and in transit with TLS 1.3. Encryption keys managed by Google Cloud KMS with audit logging on all key access.</span>
+      </div>
+    </div>
+    <div class="gdpr-item">
+      <div class="gdpr-check">✓</div>
+      <div class="gdpr-text">
+        <strong>Retention & Deletion</strong>
+        <span>Automated data retention policies enforced at the database level. Tenant offboarding triggers schema-level deletion — no residual data remains after confirmed deletion.</span>
+      </div>
+    </div>
+    <div class="gdpr-item">
+      <div class="gdpr-check">✓</div>
+      <div class="gdpr-text">
+        <strong>Breach Notification</strong>
+        <span>Security Command Center alerts enable detection within hours. Documented incident response procedure ensures regulatory notification within the required 72-hour window.</span>
+      </div>
+    </div>
+    <div class="gdpr-item">
+      <div class="gdpr-check">✓</div>
+      <div class="gdpr-text">
+        <strong>Processor Agreements</strong>
+        <span>Google Cloud operates under a GDPR-compliant Data Processing Agreement. All sub-processors documented and reviewed annually for compliance posture.</span>
+      </div>
+    </div>
+    <div class="gdpr-item">
+      <div class="gdpr-check">✓</div>
+      <div class="gdpr-text">
+        <strong>Audit Trail</strong>
+        <span>All access to personal data captured in Cloud Audit Logs. Immutable audit trail available for regulatory review. Log integrity verified via cryptographic signatures.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- MULTI-TENANT -->
+<section class="section reveal" id="tenancy">
+  <div class="section-tag">// 06 · MULTI-TENANT ISOLATION</div>
+  <h2 class="section-title">Tenant Isolation Architecture</h2>
+  <p class="section-desc">Multiple isolation layers ensure complete data separation between tenants — from network to database.</p>
+
+  <div class="tenant-arch">
+    <div class="tenant-header">
+      <div class="t-label">// GCP · europe-west2 · Cloud SQL · PostgreSQL</div>
+      <h3>Per-Client Schema Isolation with Row-Level Security</h3>
+    </div>
+
+    <div class="tenant-layers">
+
+      <div class="t-layer">
+        <div class="t-layer-header">Layer 1 · Network — Cloud Run Services (per tenant)</div>
+        <div class="t-layer-body">
+          <div class="t-box isolated">
+            <div class="t-box-label">Tenant A</div>
+            <div class="t-box-value">Cloud Run Service</div>
+            <span class="t-box-badge badge-blue">Isolated Container</span>
+          </div>
+          <div class="t-box isolated">
+            <div class="t-box-label">Tenant B</div>
+            <div class="t-box-value">Cloud Run Service</div>
+            <span class="t-box-badge badge-blue">Isolated Container</span>
+          </div>
+          <div class="t-box isolated">
+            <div class="t-box-label">Tenant C</div>
+            <div class="t-box-value">Cloud Run Service</div>
+            <span class="t-box-badge badge-blue">Isolated Container</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-layer">
+        <div class="t-layer-header">Layer 2 · Database — Per-Client Schemas</div>
+        <div class="t-layer-body">
+          <div class="t-box isolated">
+            <div class="t-box-label">Schema A</div>
+            <div class="t-box-value">Completely Isolated</div>
+            <span class="t-box-badge badge-blue">RLS Enforced</span>
+          </div>
+          <div class="t-box isolated">
+            <div class="t-box-label">Schema B</div>
+            <div class="t-box-value">Completely Isolated</div>
+            <span class="t-box-badge badge-blue">RLS Enforced</span>
+          </div>
+          <div class="t-box isolated">
+            <div class="t-box-label">Schema C</div>
+            <div class="t-box-value">Completely Isolated</div>
+            <span class="t-box-badge badge-blue">RLS Enforced</span>
+          </div>
+          <div class="t-box shared">
+            <div class="t-box-label">Shared Lookups</div>
+            <div class="t-box-value">Read-Only Reference</div>
+            <span class="t-box-badge badge-amber">No PII</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-layer">
+        <div class="t-layer-header">Layer 3 · Security — Enforcement Controls</div>
+        <div class="t-layer-body">
+          <div class="t-box rls">
+            <div class="t-box-label">PostgreSQL RLS</div>
+            <div class="t-box-value">Database-level enforcement</div>
+            <span class="t-box-badge badge-purple">Structural</span>
+          </div>
+          <div class="t-box rls">
+            <div class="t-box-label">App-Level Routing</div>
+            <div class="t-box-value">Tenant context injection</div>
+            <span class="t-box-badge badge-purple">Application</span>
+          </div>
+          <div class="t-box rls">
+            <div class="t-box-label">Connection Pool</div>
+            <div class="t-box-value">Per-tenant pool isolation</div>
+            <span class="t-box-badge badge-purple">Network</span>
+          </div>
+          <div class="t-box rls">
+            <div class="t-box-label">Audit Logging</div>
+            <div class="t-box-value">Cross-tenant detection</div>
+            <span class="t-box-badge badge-purple">Monitoring</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- INCIDENT RESPONSE -->
+<section class="section reveal" id="incident">
+  <div class="section-tag">// 07 · INCIDENT RESPONSE</div>
+  <h2 class="section-title">Security Incident Response</h2>
+  <p class="section-desc">Documented 5-phase incident response procedure aligned with GDPR 72-hour notification requirements.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+    <div class="incident-timeline">
+      <div class="incident-step">
+        <div class="incident-phase">Phase 01 · T+0</div>
+        <div class="incident-title">Detection & Triage</div>
+        <div class="incident-desc">Security Command Center alert triggers PagerDuty notification. On-call engineer triages within 15 minutes. Incident severity classified (P1-P4) and incident channel opened.</div>
+      </div>
+      <div class="incident-step step-2">
+        <div class="incident-phase">Phase 02 · T+1hr</div>
+        <div class="incident-title">Containment</div>
+        <div class="incident-desc">Affected Cloud Run services isolated via IAM deny policies. Compromised service accounts revoked. Cloud SQL connections terminated for affected tenants. Traffic rerouted.</div>
+      </div>
+      <div class="incident-step step-3">
+        <div class="incident-phase">Phase 03 · T+4hr</div>
+        <div class="incident-title">Investigation</div>
+        <div class="incident-desc">Cloud Audit Logs and VPC Flow Logs reviewed to establish blast radius. Affected data identified. Root cause analysis initiated. Evidence preserved for forensic review.</div>
+      </div>
+      <div class="incident-step step-4">
+        <div class="incident-phase">Phase 04 · T+24hr</div>
+        <div class="incident-title">Remediation</div>
+        <div class="incident-desc">Patch deployed via Cloud Build pipeline. Affected credentials rotated in Secret Manager. Security controls updated to prevent recurrence. Penetration test scheduled.</div>
+      </div>
+      <div class="incident-step step-5">
+        <div class="incident-phase">Phase 05 · T+72hr</div>
+        <div class="incident-title">Notification & Review</div>
+        <div class="incident-desc">GDPR regulatory notification filed if personal data involved. Affected clients notified. Post-incident review conducted. Security runbook updated with lessons learned.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="t-dot t-red"></div>
+          <div class="t-dot t-amber"></div>
+          <div class="t-dot t-green"></div>
+          <span class="terminal-title">incident-response.sh</span>
+        </div>
+        <div class="terminal-body">
+          <div class="t-line"><span class="t-warn">⚠ ALERT: Unusual API access pattern detected</span></div>
+          <div class="t-line"><span class="t-warn">⚠ Source: 185.220.101.x — not in allowlist</span></div>
+          <br>
+          <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">./contain.sh --revoke-sa cloud-run-sa@</span></div>
+          <div class="t-line"><span class="t-success">✓ Service account revoked</span></div>
+          <br>
+          <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">gcloud sql connect prod-db --terminate-all</span></div>
+          <div class="t-line"><span class="t-success">✓ All connections terminated</span></div>
+          <br>
+          <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">./rotate-secrets.sh --all</span></div>
+          <div class="t-line"><span class="t-output">Rotating DB_PASSWORD...</span></div>
+          <div class="t-line"><span class="t-output">Rotating JWT_SECRET...</span></div>
+          <div class="t-line"><span class="t-success">✓ All secrets rotated in Secret Manager</span></div>
+          <br>
+          <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd">./notify-gdpr.sh --72hr-window</span></div>
+          <div class="t-line"><span class="t-success">✓ Regulatory notification prepared</span></div>
+          <div class="t-line"><span class="t-prompt">$</span><span class="t-cursor"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">GCP · SECURITY · ARCHITECTURE</div>
+  <div class="footer-note">Enterprise-grade security framework · Google Cloud Platform · europe-west2 · Confidential</div>
+</footer>
+
+<script>
+// === NAV SCROLL ===
+function navTo(id) {
+  var el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+// === ACCORDION ===
+function toggleLayer(el) {
+  var isActive = el.classList.contains('active');
+  document.querySelectorAll('.arch-layer').forEach(function(l) {
+    l.classList.remove('active');
+  });
+  if (!isActive) {
+    el.classList.add('active');
+  }
+}
+
+// === SCROLL REVEAL (sections only) ===
+var revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(function(r) {
+  revealObserver.observe(r);
+});
+
+// === STAGGER SEC-CARDS (separate observer, no unobserve conflict) ===
+var cardObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.style.opacity = 1;
+      e.target.style.transform = 'translateY(0)';
+      cardObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.sec-card').forEach(function(card, i) {
+  card.style.opacity = 0;
+  card.style.transform = 'translateY(20px)';
+  card.style.transition = 'opacity 0.5s ease ' + (i * 0.08) + 's, transform 0.5s ease ' + (i * 0.08) + 's';
+  cardObserver.observe(card);
+});
+
+// === REVEAL HERO immediately ===
+var hero = document.querySelector('.hero');
+if (hero) {
+  hero.style.opacity = 1;
+  hero.style.transform = 'none';
+}
+</script>
+</body>
+</html>
